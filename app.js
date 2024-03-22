@@ -1,12 +1,12 @@
 require("dotenv").config();
 
-import express from "express";
-import mysql from "mysql2/promise";
-import UserRepository from "./src/gateways/userRepository";
-import UserService from "./src/services/userService";
-import AuthService from "./src/services/authService";
-import ExpressAdapter from "./src/adapters/expressAdapter";
-import JwtAdapter from "./src/adapters/jwtAdapter";
+const express = require("express");
+const mysql = require("mysql2/promise");
+const UserRepository = require("./src/gateways/userRepository");
+const UserService = require("./src/services/userService");
+const AuthService = require("./src/services/authService");
+const ExpressAdapter = require("./src/adapters/expressAdapter");
+const JwtAdapter = require("./src/adapters/jwtAdapter");
 
 const app = express();
 
