@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const express = require("express");
 const mysql = require("mysql2/promise");
+const jwtSecret = require("./generateJwt");
+
 const UserRepository = require("./src/gateways/userRepository");
 const UserService = require("./src/services/userService");
 const AuthService = require("./src/services/authService");
@@ -20,7 +22,6 @@ async function startServer() {
 
   const userRepository = new UserRepository(db);
   const userService = new UserService(userRepository);
-  const jwtSecret = process.env.JWT_SECRET;
   const jwtAdapter = new JwtAdapter(jwtSecret);
   const authService = new AuthService(userRepository, jwtSecret);
   const expressAdapter = new ExpressAdapter(app, authService, userService);

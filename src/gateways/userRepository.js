@@ -12,6 +12,11 @@ class UserRepository {
     return result.insertId;
   }
 
+  async getAll() {
+    const [rows] = await this.db.query("SELECT * FROM users");
+    return rows;
+  }
+
   async findById(id) {
     const [rows] = await this.db.query("SELECT * FROM users WHERE id = ?", [
       id,

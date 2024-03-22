@@ -43,7 +43,7 @@ class ExpressAdapter {
     this.app.get("/users/:id", async (req, res) => {
       const userId = req.params.id;
       try {
-        const user = await this.userService.getUser(userId);
+        const user = await this.userService.findById(userId);
         res.json(user);
       } catch (error) {
         res.status(404).json({ error: error.message });
@@ -54,7 +54,7 @@ class ExpressAdapter {
       const userId = req.params.id;
       const { username, email } = req.body;
       try {
-        const updatedUser = await this.userService.updateUser(
+        const updatedUser = await this.userService.update(
           userId,
           username,
           email
@@ -68,7 +68,7 @@ class ExpressAdapter {
     this.app.delete("/users/:id", async (req, res) => {
       const userId = req.params.id;
       try {
-        const deletedUser = await this.userService.deleteUser(userId);
+        const deletedUser = await this.userService.delete(userId);
         res.json(deletedUser);
       } catch (error) {
         res.status(400).json({ error: error.message });
