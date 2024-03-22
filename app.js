@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const mysql = require("mysql2/promise");
-// const jwtSecret = require("./generateJwt");
 
 const UserRepository = require("./src/gateways/userRepository");
 const UserService = require("./src/services/userService");
