@@ -1,9 +1,30 @@
+const jwt = require("jsonwebtoken");
+
 class ExpressAdapter {
   constructor(app, authService, userService) {
     this.app = app;
     this.authService = authService;
     this.userService = userService;
     this.setupRoutes();
+  }
+
+  verifyToken(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ error: "Token is required" });
+    }
+
+    try {
+      const decoded = jwt.verify(
+        token.substring(7),
+        process.env.JWT_SECRET_KEY
+      );
+      req.user = decoded;
+      next();
+    } catch (error) {
+      return res.status(401).json({ error: "Invalid token" });
+    }
   }
 
   setupRoutes() {
@@ -30,6 +51,8 @@ class ExpressAdapter {
         res.status(401).json({ error: error.message });
       }
     });
+
+    this.app.use(this.verifyToken);
 
     this.app.get("/users", async (req, res) => {
       try {

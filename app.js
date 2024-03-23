@@ -12,6 +12,7 @@ const JwtAdapter = require("./src/adapters/jwtAdapters");
 async function startServer() {
   const app = express();
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
   const db = await mysql.createConnection({
     host: process.env.DB_HOST,
